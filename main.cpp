@@ -5,6 +5,7 @@
 #include <sstream>
 #include <limits>
 #include <cmath>
+#include <cmath>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ int lerInteiro(string mensagem) {
 
     while (true) {
         cout << mensagem;
-        if (cin >> valor) {
+        if (cin >> valor && std::isfinite(valor)) {
             return valor;
         }
 
@@ -84,9 +85,9 @@ void carregarContas() {
     while (getline(arquivo, linha) && quantidadeContas < MAX_CONTAS) {
         stringstream dados(linha);
         string campo;
-        int numero, tipo, ativa;
+        int numero = 0, tipo = 0, ativa = -1;
         string nome, documento;
-        double valorSaldo;
+        double valorSaldo = -1;
 
         if (!getline(dados, campo, ';')) continue;
         stringstream(campo) >> numero;
@@ -166,9 +167,9 @@ void carregarMovimentacoes() {
            quantidadeMovimentacoes < MAX_MOVIMENTACOES) {
         stringstream dados(linha);
         string campo;
-        int numero;
-        char tipo;
-        double valor;
+        int numero = 0;
+        char tipo = '?';
+        double valor = -1;
 
         if (!getline(dados, campo, ';')) continue;
         stringstream(campo) >> numero;
